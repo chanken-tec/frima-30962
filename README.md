@@ -1,24 +1,59 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## usersテーブル
 
-Things you may want to cover:
+| Column                   | Type     | Options                        |
+| ------------------------ | -------- | ------------------------------ |
+| nickname                 | string   | null: false, foreign_key: true |
+| mail_address             | string   | null: false, foreign_key: true |
+| password                 | string   | null: false, foreign_key: true |
+| password_confirmation    | string   | null: false, foreign_key: true |
+| first_name               | string   | null: false, foreign_key: true |
+| first_name_ruby          | string   | null: false, foreign_key: true |
+| last_name_ruby           | string   | null: false, foreign_key: true |
+| birthday                 | integer  | null: false, foreign_key: true |
 
-* Ruby version
 
-* System dependencies
+### Association
+- has_many :items
+- has_many :purchases, through: :items
 
-* Configuration
+## itemsテーブル
 
-* Database creation
+| Column        | Type    | Options                        |
+| ------------- | ------- | ------------------------------ |
+| name          | string  | null: false, foreign_key: true |
+| image         | string  | null: false, foreign_key: true |
+| information   | text    | null: false, foreign_key: true |
+| category      | string  | null: false, foreign_key: true |
+| condition     | string  | null: false, foreign_key: true |
+| delivery_fee  | integer | null: false, foreign_key: true |
+| shipping_area | string  | null: false, foreign_key: true |
+| shipping_days | integer | null: false, foreign_key: true |
+| price         | integer | null: false, foreign_key: true |
 
-* Database initialization
+### Association
+- belongs_to :users
+- has_one :purchases
 
-* How to run the test suite
+## purchasesテーブル
 
-* Services (job queues, cache servers, search engines, etc.)
+| Column           | Type    | Options                        |
+| ---------------- | ------- | ------------------------------ |
+| card_number      | integer | null: false, foreign_key: true |
+| expiration_date  | integer | null: false, foreign_key: true |
+| cvv              | integer | null: false, foreign_key: true |
+| post_cord        | integer | null: false, foreign_key: true |
+| prefecture       | string  | null: false, foreign_key: true |
+| city             | string  | null: false, foreign_key: true |
+| address          | string  | null: false, foreign_key: true |
+| building_name    | string  |             |
+| phone_number     | integer | null: false, foreign_key: true |
 
-* Deployment instructions
 
-* ...
+### Association
+- belongs_to :users
+- has_many :items, through: :users
+
+
+
