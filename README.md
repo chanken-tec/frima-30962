@@ -2,16 +2,16 @@
 
 ## usersテーブル
 
-| Column                   | Type     | Options     |
-| ------------------------ | -------- | ----------- |
-| nickname                 | string   | null: false |
-| email                    | string   | null: false |
-| encrypted_password       | string   | null: false |
-| first_name               | string   | null: false |
-| first_name_ruby          | string   | null: false |
-| last_name                | string   | null: false |
-| last_name_ruby           | string   | null: false |
-| birthday                 | date     | null: false |
+| Column                   | Type     | Options                   |
+| ------------------------ | -------- | ------------------------- |
+| nickname                 | string   | null: false               |
+| email                    | string   | null: false, unique: true |
+| encrypted_password       | string   | null: false               |
+| first_name               | string   | null: false               |
+| first_name_ruby          | string   | null: false               |
+| last_name                | string   | null: false               |
+| last_name_ruby           | string   | null: false               |
+| birthday                 | date     | null: false               |
 
 
 ### Association
@@ -28,7 +28,7 @@
 | condition_id     | integer    | null: false                    |
 | delivery_fee_id  | integer    | null: false                    |
 | shipping_area_id | integer    | null: false                    |
-| shipping_days_id | integer    | null: false                    |
+| shipping_day_id  | integer    | null: false                    |
 | price            | integer    | null: false                    |
 | user             | references | null: false, foreign_key: true |
 
@@ -50,9 +50,7 @@
 
 
 ### Association
-- belongs_to :user
-- has_many :items
-- 
+- belongs_to :purchase_history
 
 ## purchase_history
 
@@ -60,6 +58,7 @@
 | -------- | ---------- | ------------------------------ |
 | item     | references | null: false, foreign_key: true |
 | user     | references | null: false, foreign_key: true |
+| purchase | references | null: false, foreign_key: true |
 
 ### Association
 - belongs_to :item
