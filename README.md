@@ -39,26 +39,26 @@
 
 ## purchasesテーブル
 
-| Column           | Type    | Options     |
-| ---------------- | ------- | ----------- |
-| post_cord        | string  | null: false |
-| prefecture       | string  | null: false |
-| city             | string  | null: false |
-| address          | string  | null: false |
-| building_name    | string  |             |
-| phone_number     | string  | null: false |
+| Column           | Type       | Options                        |
+| ---------------- | ---------- | ------------------------------ |
+| post_cord        | string     | null: false                    |
+| city             | string     | null: false                    |
+| address          | string     | null: false                    |
+| building_name    | string     |                                |
+| phone_number     | string     | null: false                    |
+| purchase_history | references | null: false, foreign_key: true |
+| shipping_area_id | integer    | null: false                    |
 
 
 ### Association
 - belongs_to :purchase_history
 
-## purchase_history
+## purchase_histories
 
 | Column   | Type       | Options                        |
 | -------- | ---------- | ------------------------------ |
 | item     | references | null: false, foreign_key: true |
 | user     | references | null: false, foreign_key: true |
-| purchase | references | null: false, foreign_key: true |
 
 ### Association
 - belongs_to :item
