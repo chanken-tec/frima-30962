@@ -37,6 +37,7 @@
 - belongs_to :user
 - has_one :purchase_history
 
+
 ## purchasesテーブル
 
 | Column           | Type       | Options                        |
