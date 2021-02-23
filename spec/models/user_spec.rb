@@ -92,11 +92,16 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include("Last name can't be blank")
       end
 
-      it 'ユーザー本名は、全角(漢字・ひらがな・カタカナ)での入力が必須であること' do
+      it 'ユーザー本名の名字は、全角(漢字・ひらがな・カタカナ)での入力が必須であること' do
         @user.first_name = "Mihon"
+        @user.valid?
+        expect(@user.errors.full_messages).to include("First name is invalid")
+      end
+
+      it 'ユーザー本名の名前は、全角(漢字・ひらがな・カタカナ)での入力が必須であること' do
         @user.last_name = "Taro"
         @user.valid?
-        expect(@user.errors.full_messages).to include("First name is invalid", "Last name is invalid")
+        expect(@user.errors.full_messages).to include("Last name is invalid")
       end
 
       it 'ユーザー本名のフリガナは、名字が必須であること' do
@@ -111,18 +116,28 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include("Last name ruby can't be blank")
       end
 
-      it 'ユーザー本名のフリガナは、全角(カタカナ)での入力が必須であること' do
+      it 'ユーザー本名の名字のフリガナは、全角(カタカナ)での入力が必須であること' do
         @user.first_name_ruby = "ﾐﾎﾝ"
-        @user.last_name_ruby = "ﾀﾛｳ"
         @user.valid?
-        expect(@user.errors.full_messages).to include("First name ruby is invalid", "Last name ruby is invalid")
+        expect(@user.errors.full_messages).to include("First name ruby is invalid")
       end
 
-      it 'ユーザー本名のフリガナは、カタカナ以外の全角文字だと登録できないこと' do
+      it 'ユーザー本名の名前のフリガナは、全角(カタカナ)での入力が必須であること' do
+        @user.last_name_ruby = "ﾀﾛｳ"
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Last name ruby is invalid")
+      end
+
+      it 'ユーザー本名の名字のフリガナは、カタカナ以外の全角文字だと登録できないこと' do
         @user.first_name_ruby = "みほん"
+        @user.valid?
+        expect(@user.errors.full_messages).to include("First name ruby is invalid")
+      end
+
+      it 'ユーザー本名の名前のフリガナは、カタカナ以外の全角文字だと登録できないこと' do
         @user.last_name_ruby = "たろう"
         @user.valid?
-        expect(@user.errors.full_messages).to include("First name ruby is invalid", "Last name ruby is invalid")
+        expect(@user.errors.full_messages).to include("Last name ruby is invalid")
       end
 
       it '生年月日が必須であること' do

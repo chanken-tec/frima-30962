@@ -6,12 +6,18 @@ class User < ApplicationRecord
 
   with_options presence: true do
     validates :nickname
-    validates :password, format: {with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i}
-    validates :password_confirmation, format: {with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i}
-    validates :first_name, format: {with: /\A[ぁ-んァ-ン一-龥]/ }
-    validates :last_name, format: {with: /\A[ぁ-んァ-ン一-龥]/ }
-    validates :first_name_ruby, format: {with: /\A[ァ-ヶー－]+\z/ }
-    validates :last_name_ruby, format: {with: /\A[ァ-ヶー－]+\z/ }
+    with_options format: {with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i} do
+      validates :password
+      validates :password_confirmation
+    end
+    with_options format: {with: /\A[ぁ-んァ-ヶ一-龥々]+\z/} do
+      validates :first_name
+      validates :last_name
+    end
+    with_options format: {with: /\A[ァ-ヶー－]+\z/ } do
+      validates :first_name_ruby
+      validates :last_name_ruby
+    end
     validates :birthday
   end
 
