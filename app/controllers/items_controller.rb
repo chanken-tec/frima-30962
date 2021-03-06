@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [ :new, :create, :destroy, :edit]
+  before_action :authenticate_user!, only: [ :new, :create, :destroy]
   before_action :set_item, only: [:show, :destroy, :edit, :update]
   
   def index 
@@ -23,14 +23,21 @@ class ItemsController < ApplicationController
   end
 
   def edit
+    if authenticate_user!
+      if @item.user_id == current_user.id
+      else
+        redirect_to root_path
+      end
+    else
+      redirect_to new_user_session_path 
+    end
   end
 
   def update
-    item = Item.find(params[:id])
-    if item.update(item_params)
+    if @item.update(item_params)
       redirect_to item_path
     else
-      render edit
+      render :edit
     end
   end
 
