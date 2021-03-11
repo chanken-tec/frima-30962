@@ -1,18 +1,10 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!, only: [:index, :create]
   before_action :item_find
+  before_action :item_user, only: [:index, :create]
 
   def index
-    if user_signed_in? 
       @address_order = AddressOrder.new
-    else
-      redirect_to root_path
-    end
-
-    if @item.order.present? && current_user.id == @item.user_id
-      redirect_to root_path
-    end
-    
   end
 
   def create
@@ -46,6 +38,12 @@ class OrdersController < ApplicationController
 
   def item_find
     @item = Item.find(params[:item_id])
+  end
+
+  def item_user
+    if @item.order.present? && current_user.id == @item.user_id
+      redirect_to root_path
+    end
   end
   
 end

@@ -14,10 +14,7 @@ class AddressOrder
     validates :item_id
   end
 
-
-  with_options numericality: { other_than: 1, message: 'Select' } do
-    validates :shipping_area_id
-  end
+  validates :shipping_area_id, numericality: { other_than: 1, message: 'Select' }
 
   def save
     order = Order.create(user_id: user_id, item_id: item_id)
