@@ -3,7 +3,7 @@ FactoryBot.define do
     post_code          { '123-4567' }
     city             { 'あああああ' }
     address         { 'あああああ' }
-    phone_number              { 12345678910 }
+    phone_number              { "12345678910" }
     shipping_area_id    { 3 }
     token            { 'tok_abcdefghijk00000000000000000' }
     association :user
