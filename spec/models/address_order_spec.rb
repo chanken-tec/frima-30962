@@ -20,6 +20,10 @@ RSpec.describe AddressOrder, type: :model do
         @address_order.post_code = '123-4567'
         expect(@address_order).to be_valid
       end
+      it 'building_nameがなくても購入できる' do
+        @address_order.building_name = ''
+        expect(@address_order).to be_valid
+      end
       it 'priceとtokenがあれば購入できる' do
         expect(@address_order).to be_valid
       end
